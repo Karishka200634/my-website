@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Материальная помощь - Фонд «За СВОих!»</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, rgba(173, 216, 230, 0.3), rgba(176, 224, 230, 0.2), rgba(175, 238, 238, 0.3));
+            color: #8B0000;
+            line-height: 1.6;
+            padding-top: 80px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23add8e6' fill-opacity='0.2'/%3E%3C/svg%3E");
+            z-index: -1;
+        }
+        
+        /* Навигация */
+        header {
+            background: transparent;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #8B0000;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: #8B0000;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8B0000;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+        }
+        
+        /* Кнопка назад */
+        .back-button {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            background: rgba(139, 0, 0, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: #8B0000;
+            transform: translateX(-5px);
+        }
+        
+        /* Заголовок страницы */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            color: #8B0000;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .page-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #8B0000;
+        }
+        
+        /* Сетка помощи */
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .help-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 2px solid rgba(139, 0, 0, 0.1);
+        }
+        
+        .help-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .help-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .help-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .help-item:hover .help-image img {
+            transform: scale(1.05);
+        }
+        
+        .help-content {
+            padding: 25px;
+        }
+        
+        .help-content h3 {
+            color: #8B0000;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .help-content p {
+            color: #8B0000;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .help-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .help-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            color: #8B0000;
+        }
+        
+        .help-list li:before {
+            content: '•';
+            color: #8B0000;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Баннер с призывом */
+        .cta-banner {
+            background: rgba(139, 0, 0, 0.8);
+            color: white;
+            padding: 50px 0;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .cta-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+        
+        .cta-banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #8B0000;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background: #ffd700;
+            color: #8B0000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Контакты для помощи */
+        .help-contacts {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .help-contacts h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #8B0000;
+            margin-bottom: 40px;
+            font-weight: 900;
+        }
+        
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card h3 {
+            color: #8B0000;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-card p {
+            color: #8B0000;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Футер */
+        footer {
+            background: rgba(139, 0, 0, 0.9);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+        
+        .footer-section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background: rgba(255, 255, 255, 0.95);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px 0;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 15px 15px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 12px 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 1.8rem;
+                color: #8B0000;
+                cursor: pointer;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-banner h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-links {
+                display: flex !important;
+            }
+        }
+        
+        /* Плавная прокрутка */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">За СВОих!</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#about">О нас</a></li>
+                    <li><a href="index.html#help">Помощь</a></li>
+                    <li><a href="index.html#contact">Контакты</a></li>
+                    <li><a href="index.html#news">Новости</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Кнопка назад -->
+        <a href="index.html" class="back-button fade-in">
+            <i class="fas fa-arrow-left"></i> Назад на главную
+        </a>
+        
+        <!-- Заголовок страницы -->
+        <div class="page-header fade-in">
+            <h1>Материальная помощь</h1>
+            <p>Ваша поддержка в виде необходимых вещей и предметов первой необходимости помогает нам оказывать помощь тем, кто в ней больше всего нуждается</p>
+        </div>
+        
+        <!-- Сетка с категориями помощи -->
+        <div class="help-grid">
+            <!-- Медикаменты -->
+            <div class="help-item fade-in">
+                <div class="help-image">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Медикаменты">
+                </div>
+                <div class="help-content">
+                    <h3>Медикаменты</h3>
+                    <p>Необходимые лекарства и медицинские supplies для оказания первой помощи и лечения</p>
+                    <ul class="help-list">
+                        <li>Обезболивающие препараты</li>
+                        <li>Перевязочные материалы</li>
+                        <li>Антисептики и антибиотики</li>
+                        <li>Средства для обработки ран</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Продукты питания -->
+            <div class="help-item fade-in">
+                <div class="help-image">
+                    <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Продукты питания">
+                </div>
+                <div class="help-content">
+                    <h3>Продукты питания</h3>
+                    <p>Продовольствие с длительным сроком хранения для обеспечения базовых потребностей</p>
+                    <ul class="help-list">
+                        <li>Консервы (мясные, рыбные, овощные)</li>
+                        <li>Крупы и макаронные изделия</li>
+                        <li>Сахар, соль, чай</li>
+                        <li>Сухие пайки и сублимированные продукты</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Одежда и обувь -->
+            <div class="help-item fade-in">
+                <div class="help-image">
+                    <img src="https://images.unsplash.com/photo-1611010344444-5f9e4d86a6e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Одежда и обувь">
+                </div>
+                <div class="help-content">
+                    <h3>Одежда и обувь</h3>
+                    <p>Теплая и практичная одежда для различных погодных условий</p>
+                    <ul class="help-list">
+                        <li>Термобелье и носки</li>
+                        <li>Теплые куртки и штаны</li>
+                        <li>Прочная обувь (ботинки, сапоги)</li>
+                        <li>Перчатки, шапки, шарфы</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Специальное снаряжение -->
+            <div class="help-item fade-in">
+                <div class="help-image">
+                    <img src="https://avatars.dzeninfra.ru/get-zen_doc/1888335/pub_637b4c72c613f77a965943b7_637b4c7ec613f77a965945ab/scale_1200" alt="Специальное снаряжение">
+                </div>
+                <div class="help-content">
+                    <h3>Специальное снаряжение</h3>
+                    <p>Специализированное оборудование для улучшения условий службы</p>
+                    <ul class="help-list">
+                        <li>Тактическое снаряжение</li>
+                        <li>Приборы ночного видения</li>
+                        <li>Средства связи</li>
+                        <li>Тепловизоры и бинокли</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Гигиенические принадлежности -->
+            <div class="help-item fade-in">
+                <div class="help-image">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.NpvboSDvUdNC5rUeZjrvWAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Гигиенические принадлежности">
+                </div>
+                <div class="help-content">
+                    <h3>Гигиенические принадлежности</h3>
+                    <p>Предметы личной гигиены для поддержания здоровья и чистоты</p>
+                    <ul class="help-list">
+                        <li>Зубные пасты и щетки</li>
+                        <li>Мыло, шампуни, гели для душа</li>
+                        <li>Влажные салфетки и антисептики для рук</li>
+                        <li>Бритвенные принадлежности</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Прочее -->
+            <div class="help-item fade-in">
+                <div class="help-image">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Прочие необходимые вещи">
+                </div>
+                <div class="help-content">
+                    <h3>Прочие необходимые вещи</h3>
+                    <p>Другие предметы, которые могут быть полезны в полевых условиях</p>
+                    <ul class="help-list">
+                        <li>Спальные мешки и коврики</li>
+                        <li>Фонари и power bank</li>
+                        <li>Палатки и тенты</li>
+                        <li>Кухонное оборудование</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Баннер с призывом -->
+        <div class="cta-banner fade-in">
+            <h2>Каждая помощь важна!</h2>
+            <p>Даже самая небольшая поддержка может значительно улучшить условия службы наших защитников</p>
+            <a href="index.html#contact" class="btn">Связаться с нами</a>
+        </div>
+        
+        <!-- Контакты для помощи -->
+        <div class="help-contacts fade-in">
+            <h2>Как передать помощь</h2>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <h3>Адрес пункта приема</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> улица Шаховская, д. 49в, Алтайский край, г. Барнаул</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт: 9:00 - 18:00</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>Контактный телефон</h3>
+                    <p><i class="fas fa-phone"></i> +7-995-673-5866</p>
+                    <p><i class="fas fa-envelope"></i> zacvoih@list.ru</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>Куратор помощи</h3>
+                    <p><i class="fas fa-user"></i> Руш Инна Олеговна?</p>
+                    <p><i class="fas fa-phone"></i> 777777</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О нас</h3>
+                    <p>Благотворительный фонд помощи военнослужащим и их семьям «За СВОих!»</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Социальные сети</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                      <a href="https://t.me/ZaCVOih"  target="_blank"><i class="fab fa-telegram"></i></a>
+                   
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Реквизиты</h3>
+                    <p>ИНН: XXXXXXXXXX</p>
+                    <p>КПП: XXXXXXXXX</p>
+                    <p>Расчетный счет: XXXXXXXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Благотворительный фонд "За СВОих!". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на пункт
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+        
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
